@@ -1,0 +1,399 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="Db_ShopOrderModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityContainer Name="Db_ShopOrderModelStoreContainer">
+          <EntitySet Name="tbl_Customer" EntityType="Db_ShopOrderModel.Store.tbl_Customer" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="tbl_Order" EntityType="Db_ShopOrderModel.Store.tbl_Order" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="tbl_OrderDeatail" EntityType="Db_ShopOrderModel.Store.tbl_OrderDeatail" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="tbl_Product" EntityType="Db_ShopOrderModel.Store.tbl_Product" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="tbl_Register" EntityType="Db_ShopOrderModel.Store.tbl_Register" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="tbl_Store" EntityType="Db_ShopOrderModel.Store.tbl_Store" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="tbl_User" EntityType="Db_ShopOrderModel.Store.tbl_User" store:Type="Tables" Schema="dbo" />
+          <AssociationSet Name="FK_tbl_Order_tbl_Customer" Association="Db_ShopOrderModel.Store.FK_tbl_Order_tbl_Customer">
+            <End Role="tbl_Customer" EntitySet="tbl_Customer" />
+            <End Role="tbl_Order" EntitySet="tbl_Order" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_OrderDeatail_tbl_Order" Association="Db_ShopOrderModel.Store.FK_tbl_OrderDeatail_tbl_Order">
+            <End Role="tbl_Order" EntitySet="tbl_Order" />
+            <End Role="tbl_OrderDeatail" EntitySet="tbl_OrderDeatail" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_OrderDeatail_tbl_Product" Association="Db_ShopOrderModel.Store.FK_tbl_OrderDeatail_tbl_Product">
+            <End Role="tbl_Product" EntitySet="tbl_Product" />
+            <End Role="tbl_OrderDeatail" EntitySet="tbl_OrderDeatail" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_Store_tbl_Product" Association="Db_ShopOrderModel.Store.FK_tbl_Store_tbl_Product">
+            <End Role="tbl_Product" EntitySet="tbl_Product" />
+            <End Role="tbl_Store" EntitySet="tbl_Store" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="tbl_Customer">
+          <Key>
+            <PropertyRef Name="CustomerID" />
+          </Key>
+          <Property Name="CustomerID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="Family" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="Fullname" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="Mobile" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="Adress" Type="nvarchar" MaxLength="50" />
+          <Property Name="Note" Type="ntext" />
+        </EntityType>
+        <EntityType Name="tbl_Order">
+          <Key>
+            <PropertyRef Name="OrderID" />
+          </Key>
+          <Property Name="OrderID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="CustomerID" Type="int" Nullable="false" />
+          <Property Name="Date" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tbl_OrderDeatail">
+          <Key>
+            <PropertyRef Name="OrderDeatailID" />
+          </Key>
+          <Property Name="OrderDeatailID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="ProductID" Type="int" />
+          <Property Name="Count" Type="int" />
+          <Property Name="Price" Type="int" />
+          <Property Name="PriceAll" Type="int" />
+          <Property Name="OrderID" Type="int" />
+        </EntityType>
+        <EntityType Name="tbl_Product">
+          <Key>
+            <PropertyRef Name="ProductID" />
+          </Key>
+          <Property Name="ProductID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="ProductName" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="Barcode" Type="int" Nullable="false" />
+          <Property Name="Count" Type="int" Nullable="false" />
+          <Property Name="Price" Type="int" Nullable="false" />
+          <Property Name="Note" Type="ntext" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tbl_Register">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Reg" Type="bit" />
+        </EntityType>
+        <EntityType Name="tbl_Store">
+          <Key>
+            <PropertyRef Name="StoreID" />
+          </Key>
+          <Property Name="StoreID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="ProductID" Type="int" Nullable="false" />
+          <Property Name="Count" Type="int" Nullable="false" />
+          <Property Name="Date" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tbl_User">
+          <Key>
+            <PropertyRef Name="UserID" />
+          </Key>
+          <Property Name="UserID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="UserName" Type="nvarchar" MaxLength="50" />
+          <Property Name="Password" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <Association Name="FK_tbl_Order_tbl_Customer">
+          <End Role="tbl_Customer" Type="Db_ShopOrderModel.Store.tbl_Customer" Multiplicity="1" />
+          <End Role="tbl_Order" Type="Db_ShopOrderModel.Store.tbl_Order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_Customer">
+              <PropertyRef Name="CustomerID" />
+            </Principal>
+            <Dependent Role="tbl_Order">
+              <PropertyRef Name="CustomerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbl_OrderDeatail_tbl_Order">
+          <End Role="tbl_Order" Type="Db_ShopOrderModel.Store.tbl_Order" Multiplicity="0..1" />
+          <End Role="tbl_OrderDeatail" Type="Db_ShopOrderModel.Store.tbl_OrderDeatail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_Order">
+              <PropertyRef Name="OrderID" />
+            </Principal>
+            <Dependent Role="tbl_OrderDeatail">
+              <PropertyRef Name="OrderID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbl_OrderDeatail_tbl_Product">
+          <End Role="tbl_Product" Type="Db_ShopOrderModel.Store.tbl_Product" Multiplicity="0..1" />
+          <End Role="tbl_OrderDeatail" Type="Db_ShopOrderModel.Store.tbl_OrderDeatail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_Product">
+              <PropertyRef Name="ProductID" />
+            </Principal>
+            <Dependent Role="tbl_OrderDeatail">
+              <PropertyRef Name="ProductID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbl_Store_tbl_Product">
+          <End Role="tbl_Product" Type="Db_ShopOrderModel.Store.tbl_Product" Multiplicity="1" />
+          <End Role="tbl_Store" Type="Db_ShopOrderModel.Store.tbl_Store" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_Product">
+              <PropertyRef Name="ProductID" />
+            </Principal>
+            <Dependent Role="tbl_Store">
+              <PropertyRef Name="ProductID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="Db_ShopOrderModel" Alias="Self" p1:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:p1="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="Db_ShopOrderEntities" p1:LazyLoadingEnabled="true">
+          <EntitySet Name="tbl_Customer" EntityType="Db_ShopOrderModel.tbl_Customer" />
+          <EntitySet Name="tbl_Order" EntityType="Db_ShopOrderModel.tbl_Order" />
+          <EntitySet Name="tbl_OrderDeatail" EntityType="Db_ShopOrderModel.tbl_OrderDeatail" />
+          <EntitySet Name="tbl_Product" EntityType="Db_ShopOrderModel.tbl_Product" />
+          <EntitySet Name="tbl_Store" EntityType="Db_ShopOrderModel.tbl_Store" />
+          <EntitySet Name="tbl_User" EntityType="Db_ShopOrderModel.tbl_User" />
+          <AssociationSet Name="FK_tbl_Order_tbl_Customer" Association="Db_ShopOrderModel.FK_tbl_Order_tbl_Customer">
+            <End Role="tbl_Customer" EntitySet="tbl_Customer" />
+            <End Role="tbl_Order" EntitySet="tbl_Order" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_OrderDeatail_tbl_Order" Association="Db_ShopOrderModel.FK_tbl_OrderDeatail_tbl_Order">
+            <End Role="tbl_Order" EntitySet="tbl_Order" />
+            <End Role="tbl_OrderDeatail" EntitySet="tbl_OrderDeatail" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_OrderDeatail_tbl_Product" Association="Db_ShopOrderModel.FK_tbl_OrderDeatail_tbl_Product">
+            <End Role="tbl_Product" EntitySet="tbl_Product" />
+            <End Role="tbl_OrderDeatail" EntitySet="tbl_OrderDeatail" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_Store_tbl_Product" Association="Db_ShopOrderModel.FK_tbl_Store_tbl_Product">
+            <End Role="tbl_Product" EntitySet="tbl_Product" />
+            <End Role="tbl_Store" EntitySet="tbl_Store" />
+          </AssociationSet>
+          <EntitySet Name="tbl_Register" EntityType="Db_ShopOrderModel.tbl_Register" />
+        </EntityContainer>
+        <EntityType Name="tbl_Customer">
+          <Key>
+            <PropertyRef Name="CustomerID" />
+          </Key>
+          <Property Name="CustomerID" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="Family" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="Fullname" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="Mobile" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="Adress" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="Note" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <NavigationProperty Name="tbl_Order" Relationship="Db_ShopOrderModel.FK_tbl_Order_tbl_Customer" FromRole="tbl_Customer" ToRole="tbl_Order" />
+        </EntityType>
+        <EntityType Name="tbl_Order">
+          <Key>
+            <PropertyRef Name="OrderID" />
+          </Key>
+          <Property Name="OrderID" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="CustomerID" Type="Int32" Nullable="false" />
+          <Property Name="Date" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="tbl_Customer" Relationship="Db_ShopOrderModel.FK_tbl_Order_tbl_Customer" FromRole="tbl_Order" ToRole="tbl_Customer" />
+          <NavigationProperty Name="tbl_OrderDeatail" Relationship="Db_ShopOrderModel.FK_tbl_OrderDeatail_tbl_Order" FromRole="tbl_Order" ToRole="tbl_OrderDeatail" />
+        </EntityType>
+        <EntityType Name="tbl_OrderDeatail">
+          <Key>
+            <PropertyRef Name="OrderDeatailID" />
+          </Key>
+          <Property Name="OrderDeatailID" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="ProductID" Type="Int32" />
+          <Property Name="Count" Type="Int32" />
+          <Property Name="Price" Type="Int32" />
+          <Property Name="PriceAll" Type="Int32" />
+          <Property Name="OrderID" Type="Int32" />
+          <NavigationProperty Name="tbl_Order" Relationship="Db_ShopOrderModel.FK_tbl_OrderDeatail_tbl_Order" FromRole="tbl_OrderDeatail" ToRole="tbl_Order" />
+          <NavigationProperty Name="tbl_Product" Relationship="Db_ShopOrderModel.FK_tbl_OrderDeatail_tbl_Product" FromRole="tbl_OrderDeatail" ToRole="tbl_Product" />
+        </EntityType>
+        <EntityType Name="tbl_Product">
+          <Key>
+            <PropertyRef Name="ProductID" />
+          </Key>
+          <Property Name="ProductID" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="ProductName" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="Barcode" Type="Int32" Nullable="false" />
+          <Property Name="Count" Type="Int32" Nullable="false" />
+          <Property Name="Price" Type="Int32" Nullable="false" />
+          <Property Name="Note" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <NavigationProperty Name="tbl_OrderDeatail" Relationship="Db_ShopOrderModel.FK_tbl_OrderDeatail_tbl_Product" FromRole="tbl_Product" ToRole="tbl_OrderDeatail" />
+          <NavigationProperty Name="tbl_Store" Relationship="Db_ShopOrderModel.FK_tbl_Store_tbl_Product" FromRole="tbl_Product" ToRole="tbl_Store" />
+        </EntityType>
+        <EntityType Name="tbl_Store">
+          <Key>
+            <PropertyRef Name="StoreID" />
+          </Key>
+          <Property Name="StoreID" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="ProductID" Type="Int32" Nullable="false" />
+          <Property Name="Count" Type="Int32" Nullable="false" />
+          <Property Name="Date" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="tbl_Product" Relationship="Db_ShopOrderModel.FK_tbl_Store_tbl_Product" FromRole="tbl_Store" ToRole="tbl_Product" />
+        </EntityType>
+        <EntityType Name="tbl_User">
+          <Key>
+            <PropertyRef Name="UserID" />
+          </Key>
+          <Property Name="UserID" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="UserName" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="Password" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+        </EntityType>
+        <Association Name="FK_tbl_Order_tbl_Customer">
+          <End Role="tbl_Customer" Type="Db_ShopOrderModel.tbl_Customer" Multiplicity="1" />
+          <End Role="tbl_Order" Type="Db_ShopOrderModel.tbl_Order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_Customer">
+              <PropertyRef Name="CustomerID" />
+            </Principal>
+            <Dependent Role="tbl_Order">
+              <PropertyRef Name="CustomerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbl_OrderDeatail_tbl_Order">
+          <End Role="tbl_Order" Type="Db_ShopOrderModel.tbl_Order" Multiplicity="0..1" />
+          <End Role="tbl_OrderDeatail" Type="Db_ShopOrderModel.tbl_OrderDeatail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_Order">
+              <PropertyRef Name="OrderID" />
+            </Principal>
+            <Dependent Role="tbl_OrderDeatail">
+              <PropertyRef Name="OrderID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbl_OrderDeatail_tbl_Product">
+          <End Role="tbl_Product" Type="Db_ShopOrderModel.tbl_Product" Multiplicity="0..1" />
+          <End Role="tbl_OrderDeatail" Type="Db_ShopOrderModel.tbl_OrderDeatail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_Product">
+              <PropertyRef Name="ProductID" />
+            </Principal>
+            <Dependent Role="tbl_OrderDeatail">
+              <PropertyRef Name="ProductID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbl_Store_tbl_Product">
+          <End Role="tbl_Product" Type="Db_ShopOrderModel.tbl_Product" Multiplicity="1" />
+          <End Role="tbl_Store" Type="Db_ShopOrderModel.tbl_Store" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_Product">
+              <PropertyRef Name="ProductID" />
+            </Principal>
+            <Dependent Role="tbl_Store">
+              <PropertyRef Name="ProductID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="tbl_Register">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Boolean" Name="Reg" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Db_ShopOrderModelStoreContainer" CdmEntityContainer="Db_ShopOrderEntities">
+          <EntitySetMapping Name="tbl_Customer">
+            <EntityTypeMapping TypeName="IsTypeOf(Db_ShopOrderModel.tbl_Customer)">
+              <MappingFragment StoreEntitySet="tbl_Customer">
+                <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
+                <ScalarProperty Name="Note" ColumnName="Note" />
+                <ScalarProperty Name="Adress" ColumnName="Adress" />
+                <ScalarProperty Name="Mobile" ColumnName="Mobile" />
+                <ScalarProperty Name="Fullname" ColumnName="Fullname" />
+                <ScalarProperty Name="Family" ColumnName="Family" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_Order">
+            <EntityTypeMapping TypeName="Db_ShopOrderModel.tbl_Order">
+              <MappingFragment StoreEntitySet="tbl_Order">
+                <ScalarProperty Name="OrderID" ColumnName="OrderID" />
+                <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_OrderDeatail">
+            <EntityTypeMapping TypeName="Db_ShopOrderModel.tbl_OrderDeatail">
+              <MappingFragment StoreEntitySet="tbl_OrderDeatail">
+                <ScalarProperty Name="OrderDeatailID" ColumnName="OrderDeatailID" />
+                <ScalarProperty Name="ProductID" ColumnName="ProductID" />
+                <ScalarProperty Name="Count" ColumnName="Count" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="PriceAll" ColumnName="PriceAll" />
+                <ScalarProperty Name="OrderID" ColumnName="OrderID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_Product">
+            <EntityTypeMapping TypeName="Db_ShopOrderModel.tbl_Product">
+              <MappingFragment StoreEntitySet="tbl_Product">
+                <ScalarProperty Name="ProductID" ColumnName="ProductID" />
+                <ScalarProperty Name="ProductName" ColumnName="ProductName" />
+                <ScalarProperty Name="Barcode" ColumnName="Barcode" />
+                <ScalarProperty Name="Count" ColumnName="Count" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="Note" ColumnName="Note" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_Store">
+            <EntityTypeMapping TypeName="Db_ShopOrderModel.tbl_Store">
+              <MappingFragment StoreEntitySet="tbl_Store">
+                <ScalarProperty Name="StoreID" ColumnName="StoreID" />
+                <ScalarProperty Name="ProductID" ColumnName="ProductID" />
+                <ScalarProperty Name="Count" ColumnName="Count" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_User">
+            <EntityTypeMapping TypeName="Db_ShopOrderModel.tbl_User">
+              <MappingFragment StoreEntitySet="tbl_User">
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_Register">
+            <EntityTypeMapping TypeName="Db_ShopOrderModel.tbl_Register">
+              <MappingFragment StoreEntitySet="tbl_Register">
+                <ScalarProperty Name="Reg" ColumnName="Reg" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="False" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
